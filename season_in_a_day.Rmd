@@ -1,0 +1,62 @@
+---
+title: "Presentation Ninja"
+subtitle: "&#x2694;&#xFE0F; xaringan +<br/>&#x1F60E; xaringanthemer"  
+author: 
+  - "Dea Avega Editya"
+  - "M. Sobyan Q."
+date: '`r Sys.Date()`'
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: xaringan-themer.css
+    seal: false
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+```
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(
+  primary_color = "#1381B0",
+  secondary_color = "#FF961C",
+  inverse_header_color = "#FFFFFF"
+)
+
+library(readr)
+library(dplyr)
+library(tidyverse)
+library(lubridate)
+```
+
+```{r}
+melb_sensor <- read.csv("Microclimate_Sensor_Readings.csv")
+
+melb_temp <- melb_sensor %>% 
+  filter(units == "C") %>%
+  mutate(time = ymd_hms(local_time)) %>% 
+  mutate(hour = lubridate::hour(time), date = date(time)) %>% 
+  drop_na()
+
+```
+
+```{r}
+melb_temp %>% 
+ggplot(aes(x = date, y = value))+
+  geom_line()
+```
+
+
+weather:
+summer = > 24
+autumn = average mar apr may
+winter = jun jul aug
+spring = sep oct nov
+
+avg rainfall
+---
