@@ -171,21 +171,25 @@ ave_rainwinter <- melb_temp %>%
   summarise(average = mean(daily_value))
 ```
 
-We will find typical temperature for each seasons in Melbourne!  
+1. We will find typical temperature for each seasons in Melbourne!  
 
-`r fa("sun", fill = "red")` **Summer** (December, January, February) = `r pull(ave_summer)`  
+    * `r fa("sun", fill = "red")` **Summer** (December, January, February) = `r pull(ave_summer)`  
 
-`r fa("cloud-sun", fill = "blue")` **Autumn** (March, April, May) =  `r pull(ave_autumn)`  
-`r fa("snowflake", fill = "blue")` **Winter** (June, July, August) = `r pull(ave_winter)`  
-`r fa("seedling", fill = "green")` Spring (September, October, November) =`r pull(ave_spring)`
+    * `r fa("cloud-sun", fill = "blue")` **Autumn** (March, April, May) =  `r pull(ave_autumn)`  
 
-* We will find typical humidity for each seasons in Melbourne!  
+    * `r fa("snowflake", fill = "blue")` **Winter** (June, July, August) = `r pull(ave_winter)`  
+   
+    * `r fa("seedling", fill = "green")` Spring (September, October, November) =`r pull(ave_spring)`
 
-`r fa("sun", fill = "red")` **Summer** (December, January, February) = `r pull(ave_rainsummer)`  
+1. Also typical humidity for each seasons in Melbourne  
 
-`r fa("cloud-sun", fill = "blue")` **Autumn** (March, April and May) =  `r pull(ave_rainautumn)`  
-`r fa("snowflake", fill = "blue")` **Winter** (June, July and August) = `r pull(ave_rainwinter)`  
-`r fa("seedling", fill = "green")` **Spring** (September, October and November) =`r pull(ave_rainspring)`
+    * `r fa("sun", fill = "red")` **Summer** (December, January, February) = `r pull(ave_rainsummer)`  
+
+    * `r fa("cloud-sun", fill = "blue")` **Autumn** (March, April and May) =  `r pull(ave_rainautumn)`  
+   
+    * `r fa("snowflake", fill = "blue")` **Winter** (June, July and August) = `r pull(ave_rainwinter)`  
+   
+    * `r fa("seedling", fill = "green")` **Spring** (September, October and November) =`r pull(ave_rainspring)`
 
 
 ---
