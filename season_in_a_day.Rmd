@@ -144,19 +144,31 @@ ave_winter <- melb_temp %>%
 # rainfall / humid
 ave_rainsummer <- melb_temp %>% 
   filter(type == "TPH.RH-EPA-1h", month %in% c(12, 1, 2)) %>% 
-  summarise(average = mean(value))
+  group_by(type) %>% 
+  mutate(daily_value = lag(value)) %>% 
+  drop_na() %>% 
+  summarise(average = mean(daily_value))
 
 ave_rainspring <- melb_temp %>% 
   filter(type == "TPH.RH-EPA-1h", month %in% c(9, 10, 11)) %>% 
-  summarise(average = mean(value))
+  group_by(type) %>% 
+  mutate(daily_value = lag(value)) %>% 
+  drop_na() %>% 
+  summarise(average = mean(daily_value))
 
 ave_rainautumn <- melb_temp %>% 
   filter(type == "TPH.RH-EPA-1h", month %in% c(3, 4, 5)) %>% 
-  summarise(average = mean(value))
+  group_by(type) %>% 
+  mutate(daily_value = lag(value)) %>% 
+  drop_na() %>% 
+  summarise(average = mean(daily_value))
 
 ave_rainwinter <- melb_temp %>% 
   filter(type == "TPH.RH-EPA-1h", month %in% c(6, 7, 8)) %>% 
-  summarise(average = mean(value))
+  group_by(type) %>% 
+  mutate(daily_value = lag(value)) %>% 
+  drop_na() %>% 
+  summarise(average = mean(daily_value))
 ```
 
 We will find typical temperature for each seasons in Melbourne!  
@@ -221,8 +233,9 @@ melb_temp %>%
 ```{r rain, echo = FALSE}
 melb_temp %>% 
   filter(type == "TPH.RH-EPA-1h") %>% 
-  group_by(date, hour) %>% 
-  ggplot(aes(x = hour, y = value))+
+  group_by(hour) %>% 
+  summarise(ave_humid = mean(value, na.rm = TRUE)) %>% 
+  ggplot(aes(x = hour, y = ave_humid))+
     geom_col()+
   geom_hline(yintercept =  pull(ave_rainautumn), color = "yellow")+
     geom_hline(yintercept = pull(ave_rainsummer), color = "red")+
