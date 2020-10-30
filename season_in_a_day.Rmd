@@ -17,7 +17,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-options(htmltools.dir.version = FALSE)
+options(htmltools.dir.version = FALSE, digits = 2)
 
 knitr::opts_chunk$set(warning = FALSE, message = FALSE, error = FALSE, tidy.opts = list(width.cutoff=60), tidy=TRUE)
 ```
@@ -42,18 +42,18 @@ library(fontawesome)
 
 ## CWD Group Presentation
 
-`r Sys.Date()`  
-
-
+.pul-left[
 <img src = "vega.png" , width = 20%>  
-Dea Avega Editya
+Dea Avega Editya]
 
-
+.pul-right[
 <img src = "sobyan.jpg" , width = 20%>  
-M. Sobyan Qasim
+M. Sobyan Qasim]
 
+
+
+Melbourne, `r Sys.Date()`  
 ]
-
 ---
 .center[
 ### Research question:
@@ -87,10 +87,11 @@ What makes a season anyway?
 #### Steps Revealed
 
 To find the answer for our research question, we need to compare temperature in a regular day to 4 different typical temperature of each season.  
-It should be also done for humidity!  
+It should be also done for humidity!   
 
-Therefore, we need to:  
---  
+--
+  
+Therefore, we will:
 1. Explore data of temperature & humidity in the dataset
 1. Count average number per hour for these variables
 1. Compare the number to threshold
@@ -173,23 +174,23 @@ ave_rainwinter <- melb_temp %>%
 
 1. We will find typical temperature for each seasons in Melbourne!  
 
-    * `r fa("sun", fill = "red")` **Summer** (December, January, February) = `r pull(ave_summer)`  
+    * `r fa("sun", fill = "red")` **Summer** (December, January, February) = `r pull(ave_summer)` C 
 
-    * `r fa("cloud-sun", fill = "blue")` **Autumn** (March, April, May) =  `r pull(ave_autumn)`  
+    * `r fa("cloud-sun", fill = "blue")` **Autumn** (March, April, May) =  `r pull(ave_autumn)` C 
 
-    * `r fa("snowflake", fill = "blue")` **Winter** (June, July, August) = `r pull(ave_winter)`  
+    * `r fa("snowflake", fill = "blue")` **Winter** (June, July, August) = `r pull(ave_winter)` C 
    
-    * `r fa("seedling", fill = "green")` Spring (September, October, November) =`r pull(ave_spring)`
+    * `r fa("seedling", fill = "green")` **Spring** (September, October, November) =`r pull(ave_spring)` C
 
 1. Also typical humidity for each seasons in Melbourne  
 
-    * `r fa("sun", fill = "red")` **Summer** (December, January, February) = `r pull(ave_rainsummer)`  
+    * `r fa("sun", fill = "red")` **Summer** (December, January, February) = `r pull(ave_rainsummer)` %  
 
-    * `r fa("cloud-sun", fill = "blue")` **Autumn** (March, April and May) =  `r pull(ave_rainautumn)`  
+    * `r fa("cloud-sun", fill = "blue")` **Autumn** (March, April and May) = `r pull(ave_rainautumn)` % 
    
-    * `r fa("snowflake", fill = "blue")` **Winter** (June, July and August) = `r pull(ave_rainwinter)`  
+    * `r fa("snowflake", fill = "blue")` **Winter** (June, July and August) = `r pull(ave_rainwinter)` %  
    
-    * `r fa("seedling", fill = "green")` **Spring** (September, October and November) =`r pull(ave_rainspring)`
+    * `r fa("seedling", fill = "green")` **Spring** (September, October and November) =`r pull(ave_rainspring)` %
 
 
 ---
@@ -198,9 +199,9 @@ ave_rainwinter <- melb_temp %>%
 
 #### Is that true that we can feel four seasons in a day in Melbourne?
 
-##### Average Hourly Temperature in Melbourne
+<img src = "hot.png" width = 5%> Average Hourly Temperature in Melbourne
 .pull-left[
-```{r temp, echo= FALSE}
+```{r temp, eval = FALSE}
 
 melb_temp %>% 
   filter(units == "C") %>% 
@@ -221,7 +222,7 @@ melb_temp %>%
 ]
 
 .pull-left[
-```{r plot-out, ref.label = "temp", echo= TRUE}
+```{r plot-out, ref.label = "temp", echo= FALSE}
 
 ```
 ]
@@ -231,16 +232,16 @@ melb_temp %>%
 
 #### Is that true that we can feel four seasons in a day in Melbourne?
 
-##### Average Hourly Humidity in Melbourne
+<img src = "drop.png" width = 5%> Average Hourly Humidity in Melbourne
 
 .pull-left[
-```{r rain, echo = FALSE}
+```{r rain, eval = FALSE}
 melb_temp %>% 
   filter(type == "TPH.RH-EPA-1h") %>% 
   group_by(hour) %>% 
   summarise(ave_humid = mean(value, na.rm = TRUE)) %>% 
   ggplot(aes(x = hour, y = ave_humid))+
-    geom_col()+
+    geom_col(fill = "grey")+
   geom_hline(yintercept =  pull(ave_rainautumn), color = "yellow")+
     geom_hline(yintercept = pull(ave_rainsummer), color = "red")+
     geom_hline(yintercept = pull(ave_rainwinter), color = "blue")+
@@ -252,7 +253,7 @@ melb_temp %>%
 ]
 
 .pull-right[
-```{r plot-out2, ref.label= "rain", echo = TRUE}
+```{r plot-out2, ref.label= "rain", echo = FALSE}
 
 ```
 ]
