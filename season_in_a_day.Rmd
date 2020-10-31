@@ -35,6 +35,7 @@ library(dplyr)
 library(tidyverse)
 library(lubridate)
 library(fontawesome)
+library(plotly)
 ```
 
 
@@ -200,6 +201,7 @@ ave_rainwinter <- melb_temp %>%
 #### Is that true that we can feel four seasons in a day in Melbourne?
 
 <img src = "hot.png" width = 5%> Average Hourly Temperature in Melbourne
+
 .pull-left[
 ```{r temp, eval = FALSE}
 
@@ -221,13 +223,14 @@ melb_temp %>%
 ```
 ]
 
-.pull-left[
+.pull-right[
 ```{r plot-out, ref.label = "temp", echo= FALSE}
 
 ```
 ]
 
 ---
+
 ### Four Seasons in a Day - Melbourne Story 
 
 #### Is that true that we can feel four seasons in a day in Melbourne?
@@ -240,14 +243,14 @@ melb_temp %>%
   filter(type == "TPH.RH-EPA-1h") %>% 
   group_by(hour) %>% 
   summarise(ave_humid = mean(value, na.rm = TRUE)) %>% 
-  ggplot(aes(x = hour, y = ave_humid))+
-    geom_col(fill = "grey")+
-  geom_hline(yintercept =  pull(ave_rainautumn), color = "brown", size = 1)+
-    geom_hline(yintercept = pull(ave_rainsummer), color = "red", size = 1)+
-    geom_hline(yintercept = pull(ave_rainwinter), color = "blue", size = 1)+
-    geom_hline(yintercept = pull(ave_rainspring), color = "green", size = 1)+
-  theme_minimal()+
-  xlab("Time Hour")+
+  ggplot(aes(x = hour, y = ave_humid)) +
+    geom_col(fill = "grey") +
+  geom_hline(yintercept =  pull(ave_rainautumn), color = "brown", size = 1) +
+    geom_hline(yintercept = pull(ave_rainsummer), color = "red", size = 1) +
+    geom_hline(yintercept = pull(ave_rainwinter), color = "blue", size = 1) +
+    geom_hline(yintercept = pull(ave_rainspring), color = "green", size = 1) +
+  theme_minimal() +
+  xlab("Time Hour") +
   ylab("Hourly Relative Humidity (%)")
 ```
 ]
@@ -260,13 +263,45 @@ melb_temp %>%
 
 ---
 
-.pull-right[
-```{r plot-out3, ref.label= "rain", echo = FALSE}
+## Conclusion
 
-```
-]
 .pull-left[
-```{r plot-out4, ref.label = "temp", echo= FALSE}
+```{r season, eval=FALSE, message=FALSE}
+humi <- melb_temp %>% 
+  filter(type == "TPH.RH-EPA-1h") %>% 
+  group_by(hour) %>% 
+  summarise(ave_humid = mean(value, na.rm = TRUE)) 
+
+temp <- melb_temp %>% 
+  filter(units == "C") %>% 
+  group_by(hour) %>% 
+  summarise(ave_val = mean(value, na.rm = TRUE))
+
+ ggplot() + geom_col(data = humi, aes(x = hour, y = ave_humid, fill = "humid")) +  
+  geom_col(data = temp, aes(x = hour, y = ave_val, fill = "temp"))  +
+  geom_hline(yintercept =  pull(ave_rainautumn), color = "brown") +
+    geom_hline(yintercept = pull(ave_rainsummer), color = "red") +
+    geom_hline(yintercept = pull(ave_rainwinter), color = "blue") +
+    geom_hline(yintercept = pull(ave_rainspring), color = "green") + 
+    geom_hline(yintercept =  pull(ave_autumn), color = "brown")+
+    geom_hline(yintercept = pull(ave_summer), color = "red")+
+    geom_hline(yintercept = pull(ave_winter), color = "blue")+
+    geom_hline(yintercept = pull(ave_spring), color = "green")
+  theme_minimal() +
+  xlab("Time Hour") +
+  ylab("Hourly Relative Humidity (%) & Hourly Average Temperature (C)")
+  
+
 
 ```
 ]
+
+
+
+
+.pull-right[
+```{r plot-out3, ref.label= "season", echo = FALSE, message=FALSE}
+
+```
+]
+
