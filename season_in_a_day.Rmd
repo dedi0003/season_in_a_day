@@ -42,18 +42,27 @@ library(fontawesome)
 
 ## CWD Group Presentation
 
-.pul-left[
-<img src = "vega.png" , width = 20%>  
+.middle[
+.pull-left[
+<img src = "vega.png" , width = 30%>  
 Dea Avega Editya]
 
-.pul-right[
-<img src = "sobyan.jpg" , width = 20%>  
+.pull-right[
+<img src = "sobyan.jpg" , width = 30%>  
 M. Sobyan Qasim]
-
-
-
-Melbourne, `r Sys.Date()`  
+  
+  
+      
+Melbourne, `r Sys.Date()` 
 ]
+  
+  
+]
+
+
+
+
+
 ---
 .center[
 ### Research question:
@@ -78,8 +87,9 @@ What makes a season anyway?
 ]
 --
 .center[
-<img src = "https://wi-images.condecdn.net/image/doEYpG6Xd87/crop/2040/f/weather.jpg" width = 50%>
+<img src = "https://wi-images.condecdn.net/image/doEYpG6Xd87/crop/2040/f/weather.jpg" width = 40%>
 ]
+
 ---
 
 ### Let's Try to Find Out! `r fa("search", fill = "lightred")`
@@ -258,3 +268,18 @@ melb_temp %>%
 ```
 ]
 ---
+
+### Conclusion
+
+From temperature & humidity plots we know that:
+
+--
+  
+* There is a huge fluctuation both in temperature and humidity during a day
+
+--
+
+* Wear our jacket during night and early morning, and pull it off during afternoon
+--
+
+* People are true when they say that there are 4 seasons in a day in Melbourne!
