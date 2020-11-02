@@ -232,7 +232,7 @@ melb_temp %>%
   geom_text(aes(23, pull(ave_winter),label = "winter", vjust = -1))+
   theme_minimal()+
   xlab("Time Hour")+
-  ylab("Hourly Average Temperature (C)")
+  ylab("Hourly Average Temperature (C)") + theme(axis.title  = element_text(size = 15), axis.text = element_text(size = 15))
 
 
 ```
@@ -270,7 +270,7 @@ melb_temp %>%
   geom_text(aes(23, pull(ave_rainwinter),label = "winter", vjust = -.5))+
   theme_minimal() +
   xlab("Time Hour") +
-  ylab("Hourly Relative Humidity (%)")
+  ylab("Hourly Relative Humidity (%)") + theme(axis.title  = element_text(size = 15), axis.text = element_text(size = 15))
 ```
 ]
 
@@ -297,8 +297,8 @@ From temperature & humidity plots we know that:
 
 * People are true when they say that there are 4 seasons in a day in Melbourne!
 
-.pull-left[
-```{r season, eval=FALSE, message=FALSE, warning = FALSE}
+.top[
+```{r season, eval=TRUE, message=FALSE, warning = FALSE}
 humi <- melb_temp %>% 
   filter(type == "TPH.RH-EPA-1h") %>% 
   group_by(hour) %>% 
@@ -309,7 +309,7 @@ temp <- melb_temp %>%
   group_by(hour) %>% 
   summarise(ave_val = mean(value, na.rm = TRUE))
 
- ggplot() + geom_col(data = humi, aes(x = hour, y = ave_humid, fill = "humid")) +  
+p <-  ggplot() + geom_col(data = humi, aes(x = hour, y = ave_humid, fill = "humid")) +  
   geom_col(data = temp, aes(x = hour, y = ave_val, fill = "temp"))  +
   geom_hline(yintercept =  pull(ave_rainautumn), color = "brown") +
     geom_hline(yintercept = pull(ave_rainsummer), color = "red") +
@@ -321,15 +321,16 @@ temp <- melb_temp %>%
     geom_hline(yintercept = pull(ave_spring), color = "green")
   theme_minimal() +
   xlab("Time Hour") +
-  ylab("Hourly Relative Humidity (%) & Hourly Average Temperature (C)")
+  ylab("Hourly Relative Humidity (%) & Hourly Average Temperature (C)") + theme(axis.title  = element_text(size = 20), axis.text = element_text(size = 20))
   
 ```
 ]
 
+---
 
-.pull-right[
-```{r plot-out3, ref.label= "season", echo = FALSE, warning = FALSE, message=FALSE, out.width= "90%"}
-
+.center[
+```{r plot-out3, echo = FALSE, warning = FALSE, message=FALSE}
+p
 ```
 ]
 

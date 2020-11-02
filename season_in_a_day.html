@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="author" content="Dea Avega Editya" />
     <meta name="author" content="M. Soban Q." />
-    <meta name="date" content="2020-10-31" />
+    <meta name="date" content="2020-11-01" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
@@ -33,7 +33,7 @@ M. Soban Qasim
   
   
       
-Melbourne, 2020-10-31 
+Melbourne, 2020-11-01 
 ]
   
   
@@ -156,7 +156,8 @@ geom_text(aes(23, pull(ave_autumn), label = "autumn", vjust = -1)) +
     geom_text(aes(23, pull(ave_summer), label = "summer", vjust = 1)) + 
     geom_text(aes(23, pull(ave_spring), label = "spring", vjust = 1)) + 
     geom_text(aes(23, pull(ave_winter), label = "winter", vjust = -1)) + 
-    theme_minimal() + xlab("Time Hour") + ylab("Hourly Average Temperature (C)")
+    theme_minimal() + xlab("Time Hour") + ylab("Hourly Average Temperature (C)") + 
+    theme(axis.title = element_text(size = 15), axis.text = element_text(size = 15))
 ```
 ]
 
@@ -186,7 +187,8 @@ melb_temp %&gt;% filter(type == "TPH.RH-EPA-1h") %&gt;% group_by(hour) %&gt;%
     label = "summer", vjust = -0.5)) + geom_text(aes(23, pull(ave_rainspring), 
     label = "spring", vjust = 1)) + geom_text(aes(23, pull(ave_rainwinter), 
     label = "winter", vjust = -0.5)) + theme_minimal() + xlab("Time Hour") + 
-    ylab("Hourly Relative Humidity (%)")
+    ylab("Hourly Relative Humidity (%)") + theme(axis.title = element_text(size = 15), 
+    axis.text = element_text(size = 15))
 ```
 ]
 
@@ -211,7 +213,7 @@ From temperature &amp; humidity plots we know that:
 
 * People are true when they say that there are 4 seasons in a day in Melbourne!
 
-.pull-left[
+.top[
 
 ```r
 humi &lt;- melb_temp %&gt;% filter(type == "TPH.RH-EPA-1h") %&gt;% group_by(hour) %&gt;% 
@@ -220,7 +222,7 @@ humi &lt;- melb_temp %&gt;% filter(type == "TPH.RH-EPA-1h") %&gt;% group_by(hour
 temp &lt;- melb_temp %&gt;% filter(units == "C") %&gt;% group_by(hour) %&gt;% 
     summarise(ave_val = mean(value, na.rm = TRUE))
 
-ggplot() + geom_col(data = humi, aes(x = hour, y = ave_humid, 
+p &lt;- ggplot() + geom_col(data = humi, aes(x = hour, y = ave_humid, 
     fill = "humid")) + geom_col(data = temp, aes(x = hour, y = ave_val, 
     fill = "temp")) + geom_hline(yintercept = pull(ave_rainautumn), 
     color = "brown") + geom_hline(yintercept = pull(ave_rainsummer), 
@@ -231,13 +233,9 @@ ggplot() + geom_col(data = humi, aes(x = hour, y = ave_humid,
     color = "red") + geom_hline(yintercept = pull(ave_winter), 
     color = "blue") + geom_hline(yintercept = pull(ave_spring), 
     color = "green")
-theme_minimal() + xlab("Time Hour") + ylab("Hourly Relative Humidity (%) &amp; Hourly Average Temperature (C)")
+theme_minimal() + xlab("Time Hour") + ylab("Hourly Relative Humidity (%) &amp; Hourly Average Temperature (C)") + 
+    theme(axis.title = element_text(size = 20), axis.text = element_text(size = 20))
 ```
-]
-
-
-.pull-right[
-&lt;img src="season_in_a_day_files/figure-html/plot-out3-1.png" width="90%" /&gt;
 
 ```
 ## List of 95
@@ -272,7 +270,19 @@ theme_minimal() + xlab("Time Hour") + ylab("Hourly Relative Humidity (%) &amp; H
 ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
 ##  $ title                     : NULL
 ##  $ aspect.ratio              : NULL
-##  $ axis.title                : NULL
+##  $ axis.title                :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : num 20
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
 ##  $ axis.title.x              :List of 11
 ##   ..$ family       : NULL
 ##   ..$ face         : NULL
@@ -335,14 +345,14 @@ theme_minimal() + xlab("Time Hour") + ylab("Hourly Relative Humidity (%) &amp; H
 ##   ..$ family       : NULL
 ##   ..$ face         : NULL
 ##   ..$ colour       : chr "grey30"
-##   ..$ size         : 'rel' num 0.8
+##   ..$ size         : num 20
 ##   ..$ hjust        : NULL
 ##   ..$ vjust        : NULL
 ##   ..$ angle        : NULL
 ##   ..$ lineheight   : NULL
 ##   ..$ margin       : NULL
 ##   ..$ debug        : NULL
-##   ..$ inherit.blank: logi TRUE
+##   ..$ inherit.blank: logi FALSE
 ##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
 ##  $ axis.text.x               :List of 11
 ##   ..$ family       : NULL
@@ -627,6 +637,12 @@ theme_minimal() + xlab("Time Hour") + ylab("Hourly Relative Humidity (%) &amp; H
 ##  - attr(*, "complete")= logi TRUE
 ##  - attr(*, "validate")= logi TRUE
 ```
+]
+
+---
+
+.center[
+![](season_in_a_day_files/figure-html/plot-out3-1.png)&lt;!-- --&gt;
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
