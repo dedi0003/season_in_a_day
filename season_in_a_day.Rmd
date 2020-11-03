@@ -70,7 +70,7 @@ Melbourne, `r Sys.Date()`
 ]
 
 .center[
-Does Melbourne really has 4 (four) seasons in a day?  
+Does Melbourne really have 4 (four) seasons in a day?  
 ]
 --
 .center[
@@ -292,10 +292,7 @@ From temperature & humidity plots we know that:
 
 --
 
-* Wear our jacket during night and early morning, and pull it off during afternoon
---
-
-* People are true when they say that there are 4 seasons in a day in Melbourne!
+* People are right when they say that there are 4 seasons in a day in Melbourne!
 
 .top[
 ```{r season, eval=TRUE, message=FALSE, warning = FALSE}
@@ -303,12 +300,10 @@ humi <- melb_temp %>%
   filter(type == "TPH.RH-EPA-1h") %>% 
   group_by(hour) %>% 
   summarise(ave_humid = mean(value, na.rm = TRUE)) 
-
 temp <- melb_temp %>% 
   filter(units == "C") %>% 
   group_by(hour) %>% 
   summarise(ave_val = mean(value, na.rm = TRUE))
-
 p <-  ggplot() + geom_col(data = humi, aes(x = hour, y = ave_humid, fill = "humid")) +  
   geom_col(data = temp, aes(x = hour, y = ave_val, fill = "temp"))  +
   geom_hline(yintercept =  pull(ave_rainautumn), color = "brown") +
@@ -318,15 +313,15 @@ p <-  ggplot() + geom_col(data = humi, aes(x = hour, y = ave_humid, fill = "humi
     geom_hline(yintercept =  pull(ave_autumn), color = "brown")+
     geom_hline(yintercept = pull(ave_summer), color = "red")+
     geom_hline(yintercept = pull(ave_winter), color = "blue")+
-    geom_hline(yintercept = pull(ave_spring), color = "green")
+    geom_hline(yintercept = pull(ave_spring), color = "green") +
   theme_minimal() +
-  xlab("Time Hour") +
-  ylab("Hourly Relative Humidity (%) & Hourly Average Temperature (C)") + theme(axis.title  = element_text(size = 20), axis.text = element_text(size = 20))
-  
+  xlab("Time Hour") + ylab("Hourly Relative Humidity (%) & Hourly Average Temperature (C)") + theme(axis.title  = element_text(size = 15), axis.text = element_text(size = 15), legend.title = element_blank(),legend.text = element_text (size = 15))
 ```
 ]
 
 ---
+
+## What do you guys think? 
 
 .center[
 ```{r plot-out3, echo = FALSE, warning = FALSE, message=FALSE}
@@ -334,4 +329,17 @@ p
 ```
 ]
 
+---
+
+.center[
+# Thank You!
+
+## Questions?
+]
+
+
+.center[
+<img src = "any-questions.gif" , width = 60%>  
+
+]
 
